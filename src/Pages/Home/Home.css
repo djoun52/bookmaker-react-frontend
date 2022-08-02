@@ -1,0 +1,15 @@
+.home-title {
+    font-size: 60px;
+
+    text-align: center;
+    width: 100%;
+}
+
+
+.box{
+    background-color: rgb(133, 233, 133,0.5);
+    border : 1px solid black;
+    border-radius: 0.4em;
+    width: 50%;
+
+}
