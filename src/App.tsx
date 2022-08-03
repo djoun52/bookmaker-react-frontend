@@ -7,6 +7,8 @@ import Home from "./Pages/Home/Home";
 
 import { Flex} from "@chakra-ui/react";
 import TopBar from "./Containers/topBar/topBar";
+import Login from "./Pages/Login/Login";
+import Register from './Pages/register/Register'
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/list" element={<Home/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<Register/>}/>
                         <Route path="/-1" element={<Home/>}/>
                         <Route path="*" element={<Error404/>}/>
                     </Routes>
