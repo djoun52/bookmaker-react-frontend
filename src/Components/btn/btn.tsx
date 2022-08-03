@@ -1,10 +1,8 @@
 import React from 'react'
 
-export default function Btn(icon = null, text:any, fct: () => void) {
+export  function Btn(icon = null, text:any, fct: () => void, classCss:string) {
   return (
-
-
-    <button className="btn" onClick={fct} >
+    <button className={classCss} onClick={fct} >
       {icon}
       {text}
     </button>

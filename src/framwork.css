@@ -62,5 +62,19 @@ height: 100%
 
   /* background color */
   .bgc-grey{
+    background-color: #838ca4;
+  }
+  /* .bgc-grey{
     background-color: #36373a;
+  } */
+
+
+
+  .btn{
+    /* background-color: rgb(74, 188, 241) ; */
+    background: transparent;
+    padding: 0.3em;
+    border: 0.3px solid black;
+    border-radius: 3px;
+    margin-top: 0.5em;
   }

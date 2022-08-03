@@ -1,12 +1,9 @@
-import { useState } from 'react'
-import { Routes, Route, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import './framwork.css';
 import './App.css'
-import SideBar from './Containers/Nav/sideBar/sideBar'
-import TopBar from './Containers/Nav/topBar/topBar'
-import Home from './Pages/Home/Home';
+import {SideBar} from './Containers/sideBar/sideBar'
 import Error404 from "./Components/Error404/Error404"
+import Home from "./Pages/Home/Home";
 
 function App() {
 
@@ -17,8 +14,8 @@ function App() {
         <SideBar />
         <div className='w-80 bgc-grey'>
           <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/*" element={<Collection />} /> */}
+            <Route path="/" element={<Home/>} />
+            <Route path="/form" element={<Form/>} />
             <Route path="*" element={<Error404 />} />
           </Routes>
 

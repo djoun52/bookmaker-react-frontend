@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Error404.css'
-import Btn from '../btn/btn'
+import { Button} from '@chakra-ui/react'
 export default function Error404() {
 
     const navigate = useNavigate()
@@ -13,9 +13,11 @@ export default function Error404() {
 
                 <h1>error 404 Page not found</h1>
                 <div className="">
-                <Btn text="Retourner à l/'accueil" fct={goHome} />
+                <Button colorScheme='gray' onClick={goHome} size='sm'>
+                    Retourner à l'accueil
+                </Button>
 
-                    <button className="btn404" onClick={goHome}> Retourner à l'accueil</button>
+                    {/* <button className="btn404" onClick={goHome}> Retourner à l'accueil</button> */}
                 </div>
 
         </div>

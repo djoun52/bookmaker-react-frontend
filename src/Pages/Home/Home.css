@@ -7,7 +7,7 @@
 
 
 .box{
-    background-color: rgb(133, 233, 133,0.5);
+    background-color: rgba(248, 248, 248, 0.5);
     border : 1px solid black;
     border-radius: 0.4em;
     width: 50%;
