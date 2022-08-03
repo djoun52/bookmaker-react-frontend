@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
-import {Input} from "../../input/input";
+
+import {Button, FormControl, FormLabel, Input} from "@chakra-ui/react";
+
+
 export function FormSearch() {
     const [term, setTerm] = useState('')
 
@@ -12,17 +15,11 @@ export function FormSearch() {
     }
     return (
         <>
-            <form action="" method="post" onSubmit={submitForm} >
-                <input
-                    value={term}
-                    onChange={(e) => setTerm(e.target.value)}
-                    type="text"
-                    placeholder="Enter a term"
-                    className="input"
-
-                />
-                <button type="submit" className="btn">Submit</button>
-
+            <form onSubmit={submitForm}>
+                <FormControl display='flex' m={3} >
+                    <Input type='text' placeholder='rechercher' onChange={(e)=>{setTerm(e.target.value)}}/>
+                    <Button colorScheme='blue' size='sm' mt={1} ml={3} mr={3} type='submit'>validé</Button>
+                </FormControl>
             </form>
         </>
     )

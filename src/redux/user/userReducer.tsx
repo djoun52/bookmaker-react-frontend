@@ -1,11 +1,21 @@
-const INITIAL_STATE = {
-    id: 0,
-    email: "",
-    pseudo: "",
-    statue: false
+import {PayloadAction} from "@reduxjs/toolkit";
+
+interface  User{
+    id: number
+    email: string
+    pseudo: string
+    statue: boolean
 }
 
-function userReducer(state = INITIAL_STATE, action: {type: string, payload: {id:number, email:string, pseudo:string}} ) {
+const INITIAL_STATE:User = {
+    id: 8,
+    email: "exmple@mail.com",
+    pseudo: "Djoun",
+    statue: true
+}
+
+
+function userReducer(state = INITIAL_STATE, action:PayloadAction<User> ) {
 
     switch (action.type) {
         case 'ADDUSER':{
@@ -32,4 +42,3 @@ function userReducer(state = INITIAL_STATE, action: {type: string, payload: {id:
 
 }
 
-export default userReducer;

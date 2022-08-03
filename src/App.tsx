@@ -1,29 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import './framwork.css';
 import './App.css'
 import {SideBar} from './Containers/sideBar/sideBar'
 import Error404 from "./Components/Error404/Error404"
 import Home from "./Pages/Home/Home";
-import FormPage from "./Pages/formPage/formPage";
+
+import { Flex} from "@chakra-ui/react";
+import TopBar from "./Containers/topBar/topBar";
 
 function App() {
 
 
-  return (
-    <div className="App  ">
-      <div className='flex '>
-        <SideBar />
-        <div className='w-80 bgc-grey'>
-          <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/form" element={<FormPage/>} />
-            <Route path="*" element={<Error404 />} />
-          </Routes>
-
+    return (
+        <div className="App  ">
+            <Flex w='100%'>
+                <SideBar/>
+                <Flex w='100%' flexDir='column' >
+                    <TopBar/>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/list" element={<Home/>}/>
+                        <Route path="/-1" element={<Home/>}/>
+                        <Route path="*" element={<Error404/>}/>
+                    </Routes>
+                </Flex>
+            </Flex>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default App
