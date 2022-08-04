@@ -1,13 +1,9 @@
 import {PayloadAction} from "@reduxjs/toolkit";
+import {ADD_USER, REMOVE_USER} from "../actionTypes";
 
-interface  User{
-    id: number | null
-    email: string | null
-    pseudo: string | null
-    status: boolean
-}
 
-const INITIAL_STATE:User = {
+
+const initialState:UserState = {
     id: 8,
     email: "exmple@mail.com",
     pseudo: "Djoun",
@@ -15,25 +11,36 @@ const INITIAL_STATE:User = {
 }
 
 
-export function usersReducer(state = INITIAL_STATE, action:PayloadAction<User> ) {
-
+//export function usersReducer(state = INITIAL_STATE, action:PayloadAction<UserState> ) {
+    const usersReducer = (
+        state: UserState = initialState,
+        action: UserAction
+    ):{ id: number | null; pseudo: string | null;  email: string | null; status: boolean } => {
     switch (action.type) {
-        case 'ADDUSER':{
-            return{
-                ...state,
-                id: action.payload.id,
-                email: action.payload.email,
-                pseudo: action.payload.pseudo,
+        case ADD_USER:{
+
+            const newUser: UserState = {
+                id: action.user.id,
+                email: action.user.email,
+                pseudo: action.user.pseudo,
                 status : true
             }
-        }
-        case 'REMOVEUSER':{
             return{
                 ...state,
+                user: newUser
+            }
+        }
+        case REMOVE_USER:{
+            const newUser: UserState = {
                 id: null,
                 email: null,
                 pseudo: null,
                 status: false
+            }
+            return{
+                ...state,
+                user: newUser
+
             }
         }
     }

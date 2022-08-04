@@ -1,4 +1,4 @@
-import React,  from 'react'
+import React  from 'react'
 import "../Form.css";
 import {Box, Button, PinInput, PinInputField, FormControl, FormLabel} from "@chakra-ui/react";
 import {SubmitHandler, useForm} from "react-hook-form";

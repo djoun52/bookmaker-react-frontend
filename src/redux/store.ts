@@ -1,5 +1,5 @@
 import {configureStore, createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {usersReducer} from './user/usersReducer'
+import {usersReducer} from './user/userSlice'
 
 
 const store = configureStore({
