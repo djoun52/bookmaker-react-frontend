@@ -1,26 +1,51 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './sideBar.css'
-import {Avatar, Flex, LinkBox, Text, LinkOverlay, Wrap, Box, WrapItem} from '@chakra-ui/react'
+import {Avatar, Flex, LinkBox, Text, LinkOverlay, Box, WrapItem} from '@chakra-ui/react'
 import {
     Menu,
     MenuButton,
     MenuList,
     MenuItem,
     Button,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import {Link} from "react-router-dom";
+import {useAppSelector, useAppDispatch} from '../../redux/hooks'
+import {removeUser, selectUser} from "../../redux/user/userSlice";
+
 
 export function SideBar() {
-    const [log, setLog] = useState(false)
+    const user = useAppSelector(selectUser);
+    const [log, setLog] = useState(user.status)
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        console.log(user.pseudo)
+
+    }, [])
+
+    function logout(): void {
+        dispatch(removeUser())
+        setLog(false)
+    }
+
 
     return (
         <div className="sidebar">
-            {log  &&
-                <Wrap m={3}>
-                    <WrapItem p={2} pr={9} bg='tomato' borderRadius='full'>
-                        <Avatar size='sm' mr={1}></Avatar>
-                        <Text fontSize='xl'>Raid59000</Text>
-                    </WrapItem>
-                </Wrap>
+            {log &&
+                <Menu>
+                    <MenuButton mt={2}>
+
+                        <WrapItem p={2} pr={9} bg='tomato' borderRadius='full'>
+                            <Avatar size='sm' mr={1}></Avatar>
+                            <Text ml={1} fontSize='xl'>{user.pseudo}</Text>
+                        </WrapItem>
+
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem>
+                            <Button onClick={logout}>déconnexion</Button>
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             }
             {!log &&
                 <Box w='100%' mt={3}>
@@ -30,14 +55,10 @@ export function SideBar() {
                         </MenuButton>
                         <MenuList>
                             <MenuItem>
-                                    <LinkOverlay href='/login'>
-                                        <Text >connexion</Text>
-                                    </LinkOverlay>
+                                <Link to='/login'>connexion</Link>
                             </MenuItem>
                             <MenuItem>
-                                    <LinkOverlay href='/register'>
-                                        <Text >inscription</Text>
-                                    </LinkOverlay>
+                                <Link to='/register'>inscription</Link>
                             </MenuItem>
                         </MenuList>
                     </Menu>
