@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from '../../Components/form/formLogin/formLogin'
+import Form from '../../Components/Form/FormLogin/formLogin'
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box, Button, Flex} from "@chakra-ui/react";
-import {FormSearch} from "../../Components/form/formSearche/formSearch";
+import { Button, Flex} from "@chakra-ui/react";
+import {FormSearch} from "../../Components/Form/FormSearche/formSearch";
 
 
 export default function TopBar() {
