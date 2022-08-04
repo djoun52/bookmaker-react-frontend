@@ -1,13 +1,19 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {RootState} from '../store'
-import {ADD_USER, REMOVE_USER} from "../actionTypes";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
+
+interface initUser {
+    id: number | null
+    email: string | null | String
+    pseudo: string | null | String
+    status: boolean
+}
 
 
 // Define the initial state using that type
-const initialState: UserState = {
-    id: 8,
-    email: "exmple@mail.com",
-    pseudo: "Djoun",
+const initialState:initUser  = {
+    id: null,
+    email: null,
+    pseudo: null,
     status: true
 }
 
@@ -16,7 +22,7 @@ export const UserSlice = createSlice({
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
-        ADD_USER: (state, action: PayloadAction<UserState>) => {
+        addUser: (state, action: PayloadAction<UserState>) => {
             state = {
                 id: action.payload.id,
                 email: action.payload.email,
@@ -24,7 +30,7 @@ export const UserSlice = createSlice({
                 status: true
             }
         },
-        REMOVE_USER: (state) => {
+        removeUser: (state) => {
             state = {
                 id: null,
                 email: null,
@@ -32,13 +38,12 @@ export const UserSlice = createSlice({
                 status: false
             }
         },
-
     },
 })
 
-export const {ADD_USER, REMOVE_USER} = UserSlice.actions
+export const {addUser, removeUser} = UserSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.user.value
+export const selectUser = (state: RootState) => state.user
 
 export default UserSlice.reducer

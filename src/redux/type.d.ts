@@ -1,15 +1,14 @@
 interface  UserState {
     id: number | null
-    email: string | null
-    pseudo: string | null
-    status: boolean
+    email: string | null | String
+    pseudo: string | null | String
 }
 
-IUser
+
 
 type UserAction = {
     type: string
-    user: IArticle
+    user: UserState
 }
 
 type DispatchType = (args: UserAction) => UserAction

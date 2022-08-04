@@ -1,6 +1,9 @@
 import React from 'react';
 import {Box, Button, FormControl, Input} from "@chakra-ui/react";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {addUser} from "../../../redux/user/userSlice";
+import {useAppDispatch} from "../../../redux/hooks";
+import { useNavigate } from 'react-router-dom'
 
 
 interface IFormInput {
@@ -11,12 +14,26 @@ interface IFormInput {
 export default function FormLogin() {
 
     //const [loginErro, setLoginErro] = useState(false)
-
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch();
     const {register, handleSubmit, formState: {errors}, reset} = useForm<IFormInput>();
     const onSubmit: SubmitHandler<IFormInput> = data => {
 
         console.log(data);
-        alert(data.email + "  " + data.password);
+        if( data.password === 'azeazeaze'){
+            let user = {
+                id: 1526,
+                email: "test@test.com",
+                pseudo: data.email
+            }
+            dispatch(addUser(user))
+
+            navigate("/")
+        }else{
+            alert("mauvais mots de pass");
+        }
+
+
         reset()
     }
 
