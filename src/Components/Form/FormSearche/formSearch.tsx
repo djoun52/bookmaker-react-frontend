@@ -2,6 +2,7 @@ import React from 'react'
 import {SubmitHandler, useForm} from "react-hook-form";
 
 import {Box, Button, FormControl, Input, Text} from "@chakra-ui/react";
+import axios from "axios";
 
 
 interface IFormInput {
@@ -16,7 +17,12 @@ export function FormSearch() {
 
     const onSubmit: SubmitHandler<IFormInput> = data => {
         console.log(data);
-
+        axios.post("http://localhost:3000/bookmark", data, { withCredentials: true })
+            .then(response => {
+                console.log(response)
+            }).catch(err =>{
+            console.log(err)
+        })
         reset()
 
     }

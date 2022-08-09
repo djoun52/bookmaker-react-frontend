@@ -1,6 +1,7 @@
 import React from 'react';
 import {Box, Button, FormControl, Input, Text} from "@chakra-ui/react";
 import {SubmitHandler, useForm} from "react-hook-form";
+import axios from "axios";
 
 
 interface IFormInput {
@@ -21,7 +22,12 @@ export default function FormRegister() {
         } else if (data.password.length < 8 || data.password.length > 20) {
             alert('le mots de passe doit contenire entre 8 et 20 caractere ');
         } else {
-            alert(data.pseudo + "  " + data.email + "  " + data.password);
+            axios.post("http://localhost:3333/auth/signup", data)
+                .then(response => {
+                    console.log(response)
+                }).catch(err =>{
+                console.log(err)
+            })
         }
         reset()
 

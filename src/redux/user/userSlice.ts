@@ -14,7 +14,7 @@ const initialState:initUser  = {
     id: null,
     email: null,
     pseudo: null,
-    status: true
+    status: false
 }
 
 export const UserSlice = createSlice({

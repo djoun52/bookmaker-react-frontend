@@ -4,7 +4,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {addUser} from "../../../redux/user/userSlice";
 import {useAppDispatch} from "../../../redux/hooks";
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios';
 
 interface IFormInput {
     email: String;
@@ -20,20 +20,12 @@ export default function FormLogin() {
     const onSubmit: SubmitHandler<IFormInput> = data => {
 
         console.log(data);
-        if( data.password === 'azeazeaze'){
-            let user = {
-                id: 1526,
-                email: "test@test.com",
-                pseudo: data.email
-            }
-            dispatch(addUser(user))
-
-            navigate("/")
-        }else{
-            alert("mauvais mots de pass");
-        }
-
-
+        axios.post("http://localhost:3333/auth/signin", data)
+            .then(response => {
+                console.log(response)
+            }).catch(err =>{
+                console.log(err)
+        })
         reset()
     }
 
