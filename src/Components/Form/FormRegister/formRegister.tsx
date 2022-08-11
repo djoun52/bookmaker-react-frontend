@@ -2,6 +2,8 @@ import React from 'react';
 import {Box, Button, FormControl, Input, Text} from "@chakra-ui/react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import axios from "axios";
+import {addUser} from "../../../redux/user/userSlice";
+import {useAppDispatch} from "../../../redux/hooks";
 
 
 interface IFormInput {
@@ -14,9 +16,10 @@ interface IFormInput {
 
 export default function FormRegister() {
 
+    const dispatch = useAppDispatch();
     const {register, handleSubmit, formState: {errors}, reset} = useForm<IFormInput>();
     const onSubmit: SubmitHandler<IFormInput> = data => {
-        console.log(data);
+
         if (data.password !== data.checkPass) {
             alert('password non corespondant');
         } else if (data.password.length < 8 || data.password.length > 20) {
@@ -24,7 +27,25 @@ export default function FormRegister() {
         } else {
             axios.post("http://localhost:3333/auth/signup", data)
                 .then(response => {
-                    console.log(response)
+                    console.log(response.data)
+                    localStorage.setItem('JWToken', JSON.stringify(response.data));
+
+                    axios.get('http://localhost:3333/users/me', {
+                        headers: {
+                            Authorization: 'Bearer ' + response.data.access_token//the token is a variable which holds the token
+                        }
+                    }).then(response => {
+                        console.log(response.data)
+                        const user = {
+                            id : response.data.id,
+                            email : response.data.email,
+                            pseudo: response.data.pseudo,
+                        }
+                        dispatch(addUser(user))
+
+                    }).catch(error => {
+                        console.log(error)
+                    })
                 }).catch(err =>{
                 console.log(err)
             })

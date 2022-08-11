@@ -9,8 +9,28 @@ import TopBar from "./Containers/TopBar/TopBar";
 import Login from "./Pages/Login/Login";
 import Register from './Pages/register/Register'
 import VerifEmail from './Pages/VerifEmail/VerifEmail'
+import {useEffect} from "react";
+import axios from "axios";
 
 function App() {
+    useEffect(() => {
+
+        let tokens: string | null = localStorage.getItem("JWToken")
+        if (tokens !== null) {
+            const initialValue = JSON.parse(tokens);
+            axios.get('http://localhost:3333/users/me', {
+                headers: {
+                    Authorization: 'Bearer ' + initialValue//the token is a variable which holds the token
+                }
+            }).then(response => {
+                console.log(response)
+
+            }).catch(err => {
+                console.log(err)
+            })
+
+        }
+    }, [])
 
 
     return (
