@@ -1,8 +1,8 @@
 import React from 'react';
 import {Box, Button, FormControl, Input} from "@chakra-ui/react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {addUser} from "../../../redux/user/userSlice";
-import {useAppDispatch} from "../../../redux/hooks";
+import {addUser, selectUser} from "../../../redux/user/userSlice";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import {useDispatch} from "react-redux";
@@ -14,7 +14,7 @@ interface IFormInput {
 
 export default function FormLogin() {
 
-
+    const userRedux = useAppSelector(selectUser);
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
     const {register, handleSubmit, formState: {errors}, reset} = useForm<IFormInput>();
@@ -24,28 +24,30 @@ export default function FormLogin() {
         console.log(data);
         axios.post("http://localhost:3333/auth/signin", data)
             .then(response => {
-
                 localStorage.setItem('JWToken', JSON.stringify(response.data));
                 axios.get('http://localhost:3333/users/me', {
                     headers: {
                         Authorization: 'Bearer ' + response.data.access_token//the token is a variable which holds the token
                     }
                 }).then(response => {
-                    console.log(response.data)
-                    const user = {
-                        id : response.data.id,
-                        email : response.data.email,
+                    const user: { id: number; email: string; pseudo: string } = {
+                        id: response.data.id,
+                        email: response.data.email,
                         pseudo: response.data.pseudo,
                     }
+                    console.log(user)
                     dispatch(addUser(user))
+                    console.log(userRedux)
 
+                    navigate('/');
                 }).catch(error => {
-                    console.log(error)
+
                 })
 
             }).catch(err => {
-            console.log(err)
-        })
+                console.log(err.response.data.message)
+                alert(err.response.data.message);
+            })
         reset()
     }
 

@@ -11,26 +11,44 @@ import {
 import {Link} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from '../../redux/hooks'
 import {removeUser, selectUser} from "../../redux/user/userSlice";
+import axios from "axios";
 
 
 export function SideBar() {
     const user = useAppSelector(selectUser);
-    const [log, setLog] = useState(user.status)
+
     const dispatch = useAppDispatch();
     useEffect(() => {
         console.log(user.pseudo)
 
-    }, [])
+    }, [user])
 
     function logout(): void {
+        let tokens: string | null = localStorage.getItem("JWToken")
+
+        if (tokens !== null) {
+            const initialValue = JSON.parse(tokens);
+            console.log(initialValue)
+            axios.post('http://localhost:3333/auth/logout', {
+                headers: {
+                    Authorization: 'Bearer ' + initialValue.access_token//the token is a variable which holds the token
+                }
+            }).then(response => {
+                console.log(response)
+                localStorage.removeItem('JWToken')
+            }).catch(error => {
+                console.log(error)
+
+            })
+        }
         dispatch(removeUser())
-        setLog(false)
+
     }
 
 
     return (
         <div className="sidebar">
-            {log &&
+            {user.status &&
                 <Menu>
                     <MenuButton mt={2}>
 
@@ -41,13 +59,11 @@ export function SideBar() {
 
                     </MenuButton>
                     <MenuList>
-                        <MenuItem>
                             <Button onClick={logout}>déconnexion</Button>
-                        </MenuItem>
                     </MenuList>
                 </Menu>
             }
-            {!log &&
+            {!user.status &&
                 <Box w='100%' mt={3}>
                     <Menu>
                         <MenuButton as={Button}>

@@ -47,7 +47,8 @@ export default function FormRegister() {
                         console.log(error)
                     })
                 }).catch(err =>{
-                console.log(err)
+
+                alert(err.response.data.message);
             })
         }
         reset()

@@ -1,16 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-interface initUser {
+interface User {
     id: number | null
     email: string | null | String
     pseudo: string | null | String
     status: boolean
 }
+interface CounterState {
+    value: number
+}
+
 
 
 // Define the initial state using that type
-const initialState:initUser  = {
+const initialState: User  = {
     id: null,
     email: null,
     pseudo: null,
@@ -23,7 +27,8 @@ export const UserSlice = createSlice({
     initialState,
     reducers: {
         addUser: (state, action: PayloadAction<UserState>) => {
-            state = {
+            return  {
+                ...state,
                 id: action.payload.id,
                 email: action.payload.email,
                 pseudo: action.payload.pseudo,
@@ -31,7 +36,8 @@ export const UserSlice = createSlice({
             }
         },
         removeUser: (state) => {
-            state = {
+            return {
+                ...state,
                 id: null,
                 email: null,
                 pseudo: null,

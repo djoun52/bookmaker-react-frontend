@@ -1,7 +1,7 @@
 interface  UserState {
-    id: number | null
-    email: string | null | String
-    pseudo: string | null | String
+    id: number
+    email: string  | String
+    pseudo: string  | String
 }
 
 
